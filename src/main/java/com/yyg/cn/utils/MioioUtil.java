@@ -2,35 +2,40 @@ package com.yyg.cn.utils;
 
 import io.minio.MinioClient;
 import io.minio.errors.*;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-@Component
+import java.util.Properties;
+
 public class MioioUtil {
-    public static String endPoint;
-    public static String accessKey;
-    public static String secretKey;
-    public static String bucketName;
+    private static String endPoint;
+    private static String accessKey;
+    private static String secretKey;
+    private static String bucketName;
     public static MinioClient minioClient;
 
-//    static {
-//        try {
-//            minioClient = new MinioClient(endPoint, accessKey, secretKey);
-//        } catch (InvalidEndpointException e) {
-//            e.printStackTrace();
-//        } catch (InvalidPortException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    static {
+        try {
+            Properties properties = PropertiesLoaderUtils.loadAllProperties("application.properties");
+            endPoint = properties.getProperty("minio_endPoint");
+            accessKey = properties.getProperty("minio_AccessKey");
+            secretKey = properties.getProperty("minio_SecretKey");
+            bucketName = properties.getProperty("minio_bucketName");
+            minioClient = new MinioClient(endPoint, accessKey, secretKey);
+        } catch (InvalidEndpointException e) {
+            e.printStackTrace();
+        } catch (InvalidPortException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void createBucket() {
-
         boolean flag = false;
         try {
-            minioClient = new MinioClient(endPoint, accessKey, secretKey);
             flag = minioClient.bucketExists(bucketName);
             if (!flag) {
                 minioClient.makeBucket(bucketName);
@@ -55,26 +60,7 @@ public class MioioUtil {
             e.printStackTrace();
         } catch (RegionConflictException e) {
             e.printStackTrace();
-        } catch (InvalidPortException e) {
-            e.printStackTrace();
-        } catch (InvalidEndpointException e) {
-            e.printStackTrace();
         }
     }
-    @Value("${minio_endPoint}")
-    public static void setEndPoint(String endPoint) {
-        MioioUtil.endPoint = endPoint;
-    }
-    @Value("${minio_AccessKey}")
-    public static void setAccessKey(String accessKey) {
-        MioioUtil.accessKey = accessKey;
-    }
-    @Value("${minio_SecretKey}")
-    public static void setSecretKey(String secretKey) {
-        MioioUtil.secretKey = secretKey;
-    }
-    @Value("${minio_bucketName}")
-    public static void setBucketName(String bucketName) {
-        MioioUtil.bucketName = bucketName;
-    }
+
 }
