@@ -15,6 +15,9 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * Minio工具类
+ */
 public class MioioUtil {
     private static String endPoint;
     private static String accessKey;
