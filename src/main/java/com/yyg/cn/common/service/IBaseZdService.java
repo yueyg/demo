@@ -1,6 +1,6 @@
 package com.yyg.cn.common.service;
 
-import com.yyg.cn.common.entity.TBaseZd;
+import com.yyg.cn.common.entity.BaseZd;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author yueyg
  * @since 2021-01-31
  */
-public interface ITBaseZdService extends IService<TBaseZd> {
+public interface IBaseZdService extends IService<BaseZd> {
 
 }

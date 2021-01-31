@@ -1,6 +1,6 @@
 package com.yyg.cn.common.mapper;
 
-import com.yyg.cn.common.entity.TBaseZd;
+import com.yyg.cn.common.entity.BaseZd;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author yueyg
  * @since 2021-01-31
  */
-public interface TBaseZdMapper extends BaseMapper<TBaseZd> {
+public interface BaseZdMapper extends BaseMapper<BaseZd> {
 
 }

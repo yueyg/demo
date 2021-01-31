@@ -1,7 +1,6 @@
 package com.yyg.cn.common.entity;
 
 import java.time.LocalDate;
-
 import com.yyg.cn.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +15,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class TBaseZd extends BaseEntity {
+public class BaseZd extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
