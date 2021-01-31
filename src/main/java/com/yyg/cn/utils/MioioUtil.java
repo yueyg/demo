@@ -38,7 +38,10 @@ public class MioioUtil {
             accessKey = properties.getProperty("minio_AccessKey");
             secretKey = properties.getProperty("minio_SecretKey");
             bucketName = properties.getProperty("minio_bucketName");
-            minioClient = new MinioClient(endPoint, accessKey, secretKey);
+            if (minioClient == null) {
+                minioClient = new MinioClient(endPoint, accessKey, secretKey);
+            }
+
         } catch (InvalidEndpointException e) {
             e.printStackTrace();
         } catch (InvalidPortException e) {
