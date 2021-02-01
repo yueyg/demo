@@ -19,6 +19,17 @@ public class BaseZd extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
+    public BaseZd() {
+    }
+
+    public BaseZd(String dm, String mc, Integer zt, String fldm, Integer sxh) {
+        this.dm = dm;
+        this.mc = mc;
+        this.zt = zt;
+        this.fldm = fldm;
+        this.sxh = sxh;
+    }
+
     /**
      * 代码
      */
@@ -44,25 +55,7 @@ public class BaseZd extends BaseEntity {
      */
     private Integer sxh;
 
-    /**
-     * 创建人ID
-     */
-    private Long createUserId;
 
-    /**
-     * 创建日期
-     */
-    private LocalDate createDate;
-
-    /**
-     * 最近更新人ID
-     */
-    private Long updateUserId;
-
-    /**
-     * 最近更新日期
-     */
-    private LocalDate updateDate;
 
 
 }

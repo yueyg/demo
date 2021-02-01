@@ -2,6 +2,7 @@ package com.yyg.cn.common.controller;
 
 
 import com.yyg.cn.base.BaseController;
+import com.yyg.cn.common.entity.User;
 import com.yyg.cn.common.service.IUserService;
 import com.yyg.cn.utils.CommonUtil;
 import com.yyg.cn.utils.MioioUtil;
@@ -27,8 +28,9 @@ public class UserController extends BaseController {
     private CommonUtil commonUtil;
     @GetMapping("/show")
     public void show() {
-     MioioUtil.createBucket();
-
+        User user = new User();
+        user.setName("kkk");
+        userService.save(user);
     }
 
 }
