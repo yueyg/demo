@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.xmlpull.v1.XmlPullParserException;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidKeyException;
@@ -18,7 +19,7 @@ import java.util.*;
 /**
  * Minio工具类
  */
-public class MioioUtil {
+public class MinioUtil {
     private static String endPoint;
     private static String accessKey;
     private static String secretKey;
@@ -82,6 +83,14 @@ public class MioioUtil {
         } catch (RegionConflictException e) {
             e.printStackTrace();
         }
+    }
+    /**
+     * 获取MinioClient
+     *
+     * @return MinioClient
+     */
+    public static MinioClient getMinioClient() {
+        return minioClient;
     }
 
     /**
@@ -232,5 +241,57 @@ public class MioioUtil {
         } catch (InternalException e) {
             e.printStackTrace();
         }
+    }
+    /**
+     * 从minIO获取文件流
+     *
+     * @param bucketName 桶名称
+     * @param fileName   文件名
+     * @return 文件流
+     */
+    public static InputStream getMinIOInputStream(String bucketName, String fileName) {
+        InputStream inputStream = null;
+        try {
+            inputStream = minioClient.getObject(bucketName, fileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return inputStream;
+    }
+    /**
+     * 获取下载文件流
+     *
+     * @param bucketName 桶名
+     * @param fileUrl    文件地址
+     */
+    public static InputStream getDownloadIO(String bucketName, String fileUrl) throws Exception {
+        InputStream minIOInputStream = getMinIOInputStream(bucketName, fileUrl);
+        return minIOInputStream;
+    }
+    /**
+     * 获取下载文件流
+     *
+     * @param fileUrl 文件地址
+     */
+    public static InputStream getDownloadIO(String fileUrl) throws Exception {
+        InputStream minIOInputStream = getMinIOInputStream(bucketName, fileUrl);
+        return minIOInputStream;
+    }
+    /**
+     * 从输入流中获取字节数组
+     *
+     * @param inputStream 输入流
+     * @return 字节数组
+     * @throws IOException
+     */
+    public static byte[] readInputStream(InputStream inputStream) throws IOException {
+        byte[] buffer = new byte[1024];
+        int len;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        while ((len = inputStream.read(buffer)) != -1) {
+            bos.write(buffer, 0, len);
+        }
+        bos.close();
+        return bos.toByteArray();
     }
 }
